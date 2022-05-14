@@ -24,7 +24,7 @@ function startChangeBGcolor() {
         return;
     }
     isActive = true;
-    isInterval = setInterval(() => updateBodyBGcolor(getRandomHexColor()), 3000);
+    isInterval = setInterval(() => updateBodyBGcolor(getRandomHexColor()), 1000);
     
     console.log(isInterval);
 }
