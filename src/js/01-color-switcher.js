@@ -23,14 +23,21 @@ function startChangeBGcolor() {
     if (isActive) {
         return;
     }
-    isActive = true;
+  
+  btnStart.disabled = true;
+  btnStop.disabled = false;
+  isActive = true;
+  
     isInterval = setInterval(() => updateBodyBGcolor(getRandomHexColor()), 1000);
     
     console.log(isInterval);
 }
 
 function stopChangeBGcolor() {
-    clearInterval(isInterval);
+  clearInterval(isInterval);
+  
+    btnStart.disabled = false;
+    btnStop.disabled = true;
     isActive = false;
     
 }

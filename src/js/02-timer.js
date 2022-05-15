@@ -5,6 +5,7 @@ import 'flatpickr/dist/flatpickr.min.css';
 import 'flatpickr/dist/themes/dark.css';
 
 let selectedTime = null;
+
 const refs = {
   inputDate: document.querySelector('#datetime-picker'),
   startBtn: document.querySelector('button[data-start]'),
@@ -64,29 +65,31 @@ class Timer {
     if (this.isActive) {
       return;
     }
-
+    refs.inputDate.disabled = true;
+    refs.startBtn.disabled = true;
     this.isActive = true;
+
     this.timerID = setInterval(() => {
-      const currentTime = Date.now();
-      const deltaTime = selectedTime - currentTime;
+      // const currentTime = Date.now();
+      const deltaTime = selectedTime - new Date();
       const componentsTimer = convertMs(deltaTime);
       this.updateComponentsTimer(componentsTimer);
-      if (deltaTime <= 0) {
-        this.stopTimer();
+      
+      if (deltaTime < 1000) {
+        clearInterval(this.timerID);
       }
+      
     }, 1000);
   }
 
   updateComponentsTimer({ days, hours, minutes, seconds }) {
-    refs.days.textContent = days;
-    refs.hours.textContent = hours;
-    refs.minutes.textContent = minutes;
-    refs.seconds.textContent = seconds;
+    refs.days.innerHTML = days;
+    refs.hours.innerHTML = hours;
+    refs.minutes.innerHTML = minutes;
+    refs.seconds.innerHTML = seconds;
+
   }
 
-  stopTimer() {
-    clearInterval(this.timerID);
-  }
 }
 
 const timer = new Timer();
